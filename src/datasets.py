@@ -19,7 +19,7 @@ class MemesDataset(Dataset):
         self.image_size = image_size
         self.fast = fast
 
-        self.info_file = os.path.join(root_folder, dataset, f'labels/{dataset}_info.csv')
+        self.info_file = os.path.join(root_folder, dataset, f'hateful_memes_expanded.csv')
         self.df = pd.read_csv(self.info_file)
         self.df = self.df[self.df['split'] == self.split].reset_index(drop=True)
         float_cols = self.df.select_dtypes(float).columns
@@ -123,7 +123,7 @@ class MemesCollator(object):
 
 
 def load_dataset(args, split):
-    dataset = MemesDataset(root_folder=f'./resources/datasets', dataset=args.dataset, split=split,
+    dataset = MemesDataset(root_folder='/content', dataset=args.dataset, split=split,
                            image_size=args.image_size, fast=args.fast_process)
 
     return dataset
