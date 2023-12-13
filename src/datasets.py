@@ -26,7 +26,7 @@ class MemesDataset(Dataset):
         self.df[float_cols] = self.df[float_cols].fillna(-1).astype('Int64')
 
         if self.fast:
-            self.embds = torch.load(f'{self.root_folder}/{self.dataset}/clip_embds/{split}_no-proj_output.pt')
+            self.embds = torch.load(f'{self.root_folder}/{self.dataset}/clip_embds/{split}_no-proj_output.pt', map_location=torch.device('cuda:0' if torch.cuda.is_available() else 'cpu'))
             self.embdsDF = pd.DataFrame(self.embds)
 
             assert len(self.embds) == len(self.df)
